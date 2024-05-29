@@ -16,7 +16,7 @@ app.use(express.json());
 
 console.log('Middleware setup complete.');
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(__dirname));
 
 console.log('Static file middleware setup complete.');
 
@@ -64,7 +64,7 @@ console.log('Proxy middleware setup complete.');
 
 app.get('/', (req, res) => {
     console.log('GET / request received');
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 app.listen(PORT, (err) => {
