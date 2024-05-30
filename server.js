@@ -10,7 +10,12 @@ const port = 3000;
 
 app.use(bodyParser.json());
 app.use(express.static(__dirname)); // 处理根目录下的静态文件
-app.use(cors()); // 使用CORS中间件
+// app.use(cors()); // 使用CORS中间件
+app.use(cors({
+    origin: 'https://lhk2004.github.io',
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type']
+}));
 
 const url_token = 'https://openapi.baidu.com/oauth/2.0/token';
 
