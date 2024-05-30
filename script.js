@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
         requestInput.value = '';
 
         try {
-            const response = await fetch('http://lhk2004.github.io/chat', {
+            const response = await fetch('https://lhk2004.github.io/chat', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
