@@ -1,74 +1,40 @@
-function sendRequest() {
-    var requestInput = document.getElementById('request-input').value;
+document.addEventListener('DOMContentLoaded', () => {
+    const requestInput = document.getElementById('request-input');
+    const conversationContainer = document.getElementById('conversation-container');
 
-    var requestData = {
-        message: JSON.stringify({
-            content: {
-                type: 'text',
-                value: {
-                    showText: requestInput
-                }
-            }
-        }),
-        source: 'XwrsD3gnHeqmfR7GdqcWYkoWJ6eWDZje',
-        from: 'openapi',
-        openId: 'firstam'
+    window.sendRequest = async function () {
+        const userMessage = requestInput.value;
+        if (!userMessage) return;
+
+        appendMessage('你', userMessage);
+        requestInput.value = '';
+
+        try {
+            const response = await fetch('/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ message: userMessage })
+            });
+
+            const data = await response.json();
+            console.log('Received Response from Agent 1:', data.agent_1_output);
+            console.log('Received Response from Agent 2:', data.agent_2_output);
+            console.log('Received Response from Agent 3:', data.agent_3_output);
+            appendMessage('Chat-NJU', data.agent_4_output);
+            // appendMessage('Chat-NJU', data.combined_agent_2_3_output);
+        } catch (error) {
+            console.error('Error fetching response:', error);
+            appendMessage('Error', 'Failed to get response from agent.');
+        }
     };
 
-    console.log('Sending request with data:', requestData);
-
-    fetch('/api/rest/2.0/lingjing/assistant/getAnswer?access_token=24.1e8447a67b3f93aba0f4c076391a3081.2592000.1719568822.282335-72424051', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: new URLSearchParams({
-            message: requestData.message,
-            source: requestData.source,
-            from: requestData.from,
-            openId: requestData.openId
-        })
-    })
-    .then(response => {
-        if (!response.ok) {
-            return response.text().then(text => { throw new Error(text) });
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log('Received response:', data);
-        var conversationContainer = document.getElementById('conversation-container');
-    
-        // 显示用户的输入
-        conversationContainer.innerHTML += '<p><strong>你：</strong>' + escapeHtml(requestInput) + '</p>';
-    
-        // 检查是否有内容数据且该数据是否为非空数组
-        if (data.data && Array.isArray(data.data.content) && data.data.content.length > 0) {
-            // 循环遍历每个内容项
-            data.data.content.forEach((contentItem) => {
-                // 如果dataType为空或dataType为"markdown"，则显示内容
-                if (!contentItem.dataType || contentItem.dataType === "txt") {
-                    // 安全地添加机器人的响应内容
-                    conversationContainer.innerHTML += '<p><strong>机器人：</strong>' + escapeHtml(contentItem.data) + '</p>';
-                }
-            });
-        } else {
-            // 如果没有内容或内容格式不正确
-            conversationContainer.innerHTML += '<p><strong>机器人：</strong> 无法获取响应</p>';
-        }
-    })
-    .catch(error => {
-        console.error('发送请求时发生错误:', error);
-        var conversationContainer = document.getElementById('conversation-container');
-        conversationContainer.innerHTML += '<p><strong>错误：</strong> 请求失败，请检查控制台日志。</p>';
-    });
-}
-
-function escapeHtml(unsafe) {
-    return unsafe
-         .replace(/&/g, "&amp;")
-         .replace(/</g, "&lt;")
-         .replace(/>/g, "&gt;")
-         .replace(/"/g, "&quot;")
-         .replace(/'/g, "&#039;");
-}
+    function appendMessage(sender, message) {
+        const messageElement = document.createElement('div');
+        messageElement.className = 'message';
+        messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
+        conversationContainer.appendChild(messageElement);
+        conversationContainer.scrollTop = conversationContainer.scrollHeight;
+    }
+});

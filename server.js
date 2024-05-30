@@ -1,76 +1,84 @@
 const express = require('express');
-const { createProxyMiddleware } = require('http-proxy-middleware');
+const axios = require('axios');
+const qs = require('qs');
+const crypto = require('crypto');
+const bodyParser = require('body-parser');
 const path = require('path');
-const cors = require('cors'); // 引入 CORS 中间件
+const cors = require('cors'); // 引入CORS模块
 const app = express();
+const port = 3000;
 
-const PORT = process.env.PORT || 3000;
+app.use(bodyParser.json());
+app.use(express.static(__dirname)); // 处理根目录下的静态文件
+app.use(cors()); // 使用CORS中间件
 
-console.log('Starting server setup...');
+const url_token = 'https://openapi.baidu.com/oauth/2.0/token';
 
-app.use(cors()); // 应用 CORS 中间件
-console.log('CORS enabled for all origins.');
+const agents = [
+    { client_id: 'yc0rr8N6JXSUpn2Ck2kv3X6tlPtCsAx4', client_secret: 'y7RGjLjlqpCtGReEUjyMO3DJa0g4WcM5' },
+    { client_id: 'g5rgxC996I5A05ljFWGnvHw4dHSi5mii', client_secret: '2MZXnocyjQmyaMk2ejTtLgsyp0UT51ep' },
+    { client_id: 'XwrsD3gnHeqmfR7GdqcWYkoWJ6eWDZje', client_secret: 'P1BSKidh3XY49f1mHsCjgv0Ff7iBwSMQ' },
+    { client_id: 'e1c5Ba0RloO7BRNTymaIocx9erKOdPNw', client_secret: 'CMGaYDYOg8UZi6qngErxA4KbOWfznkX8' }
+];
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+async function getAccessToken(client_id, client_secret) {
+    const params = {
+        grant_type: 'client_credentials',
+        client_id: client_id,
+        client_secret: client_secret,
+        scope: 'smartapp_snsapi_base'
+    };
+    const response = await axios.get(url_token, { params });
+    return response.data.access_token;
+}
 
-console.log('Middleware setup complete.');
 
-app.use(express.static(__dirname));
-
-console.log('Static file middleware setup complete.');
-
-app.use('/api', createProxyMiddleware({
-    target: 'https://openapi.baidu.com',
-    changeOrigin: true,
-    pathRewrite: {
-        '^/api': '',
-    },
-    onProxyReq: (proxyReq, req, res) => {
-        proxyReq.setHeader('origin', 'https://openapi.baidu.com');
-
-        if (req.body) {
-            const contentType = proxyReq.getHeader('Content-Type');
-            let bodyData;
-
-            if (contentType === 'application/json') {
-                bodyData = JSON.stringify(req.body);
-            } else if (contentType === 'application/x-www-form-urlencoded') {
-                bodyData = new URLSearchParams(req.body).toString();
+async function getAgentOutput(access_token, message, source, openId) {
+    const url = 'https://openapi.baidu.com/rest/2.0/lingjing/assistant/getAnswer';
+    const headers = {
+        'Content-Type': 'application/x-www-form-urlencoded'
+    };
+    const data = qs.stringify({
+        message: JSON.stringify({
+            content: {
+                type: 'text',
+                value: { showText: message }
             }
+        }),
+        source: source,
+        from: 'openapi',
+        openId: openId
+    });
+    const response = await axios.post(url, data, { headers, params: { access_token: access_token } });
+    return response.data.data.content[0].data;
+}
 
-            if (bodyData) {
-                proxyReq.setHeader('Content-Length', Buffer.byteLength(bodyData));
-                proxyReq.write(bodyData);
-            }
-        }
-    },
-    onError: (err, req, res) => {
-        console.error('Proxy Error:', err);
-        res.status(500).send(`Proxy Error: ${err.message}`);
-    },
-    onProxyRes: (proxyRes, req, res) => {
-        let body = [];
-        proxyRes.on('data', chunk => {
-            body.push(chunk);
-        });
-        proxyRes.on('end', () => {
-            body = Buffer.concat(body).toString();
-        });
+app.post('/chat', async (req, res) => {
+    try {
+        const userMessage = req.body.message;
+        const openId = crypto.randomInt(1, 100000).toString();
+        const tokens = await Promise.all(agents.map(agent => getAccessToken(agent.client_id, agent.client_secret)));
+
+        const agent_1_output = await getAgentOutput(tokens[0], userMessage, agents[0].client_id, openId);
+        const agent_2_output = await getAgentOutput(tokens[1], agent_1_output, agents[1].client_id, openId);
+        const agent_3_output = await getAgentOutput(tokens[2], agent_1_output, agents[2].client_id, openId);
+
+        const combined_agent_2_3_output = agent_2_output + agent_3_output;
+        const agent_4_output = await getAgentOutput(tokens[3], combined_agent_2_3_output, agents[3].client_id, openId);
+
+        // res.json({ agent_4_output });
+        res.json({ agent_1_output, agent_2_output, agent_3_output, agent_4_output });
+        // res.json({ combined_agent_2_3_output });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Server Error');
     }
-}));
-
-console.log('Proxy middleware setup complete.');
-
-app.get('/', (req, res) => {
-    console.log('GET / request received');
-    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-app.listen(PORT, (err) => {
-    if (err) {
-        console.error('Failed to start server:', err);
-    } else {
-        console.log(`Server is running on port ${PORT}`);
-    }
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html')); // 返回根目录下的HTML文件
+});
+
+app.listen(port, () => {
+    console.log(`Server running at http://localhost:${port}`);
 });
