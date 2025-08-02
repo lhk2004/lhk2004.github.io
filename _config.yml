@@ -76,6 +76,7 @@ author:
   xing             : # Username
   youtube          : # Username
   zhihu            : # Username
+  cv_link          : /files/cv.pdf # link to your CV if you have one online
 
 # Publication Category - The following the list of publication categories and their headings
 publication_category:
