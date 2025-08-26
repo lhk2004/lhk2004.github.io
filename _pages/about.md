@@ -17,5 +17,5 @@ I am currently focused on deeply understanding and enhancing neural language sys
 
 **Understanding LLMs' Cross-Lingual Context Retrieval: How Good It Is And Where It Comes From**\
 Changjiang Gao, **Hankun Lin**, Shujian Huang, Xin Huang, Xue Han, Junlan Feng, Chao Deng, Jiajun Chen\
-*EMNLP* 2025.\
+EMNLP 2025 (long papers).\
 [[paper]](https://arxiv.org/abs/2504.10906) [[code]](https://github.com/NJUNLP/Cross-Lingual-Context-Retrieval)
