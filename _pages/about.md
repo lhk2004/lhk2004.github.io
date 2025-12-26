@@ -11,7 +11,7 @@ redirect_from:
 
 I am a senior in Computer Science at **Nanjing University**, where I have had the privilege of working alongside Professor [Shujian Huang](http://nlp.nju.edu.cn/huangsj/). I am also interning at **Purdue University** under the mentorship of Professor [Ruqi Zhang](https://ruqizhang.github.io/).
 
-I am currently focused on deeply understanding and enhancing neural language systems, building on my past work in **multilingual NLP** and **decoding-time alignment of large language models**, to advance our theoretical understanding and drive innovation in real-world applications.
+I am currently focused on deeply understanding and enhancing neural language systems, building on my past work in **multilingual NLP, acceleration, and inference-time alignment of large language models**, to advance our theoretical understanding and drive innovation in real-world applications.
 
 ## Publications
 
