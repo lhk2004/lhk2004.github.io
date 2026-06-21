@@ -20,7 +20,7 @@ My research focuses on understanding and improving neural language systems. I am
 </span>
 
 **SEED: Self-Speculative Decoding via Implicit Encoder-Decoder**\
-**Hankun Lin\***, Patrick Pynadath*, Ruqi Zhang.\
+**Hankun Lin\***, Patrick Pynadath\*, Ruqi Zhang.\
 *Preprint.* 2026.
 
 **Gradient-Guided Reward Optimization for Inference-time Alignment**\
