@@ -25,11 +25,11 @@ author:
   avatar           : "profile.png"
   name             : "Hankun Lin"
   pronouns         : # example: "she/her"  
-  bio              : "Undergrad @ School of Computer Science, Nanjing University"
-  location         : "Nanjing, CN"
-  employer         : "Nanjing University"
+  bio              : "PhD Student @ Department of Computer Science, Purdue University"
+  location         : "West Lafayette, IN"
+  employer         : "Purdue University"
   uri              : # URL
-  email            : "linhk@smail.nju.edu.cn" 
+  email            : "lhankun@purdue.edu" 
 
   # Academic websites
   academia         : # URL
