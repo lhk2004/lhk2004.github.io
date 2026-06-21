@@ -31,4 +31,4 @@ UAI 2026.\
 **Understanding LLMs' Cross-Lingual Context Retrieval: How Good It Is And Where It Comes From**\
 Changjiang Gao, **Hankun Lin**, Xin Huang, Xue Han, Junlan Feng, Chao Deng, Jiajun Chen, Shujian Huang\
 EMNLP 2025 (long papers).\
-[[paper]](https://arxiv.org/abs/2504.10906) [[code]](https://github.com/NJUNLP/Cross-Lingual-Context-Retrieval)
+[[paper]](https://aclanthology.org/2025.emnlp-main.1161) [[code]](https://github.com/NJUNLP/Cross-Lingual-Context-Retrieval)
