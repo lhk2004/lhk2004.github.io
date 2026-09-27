@@ -13,7 +13,7 @@ redirect_from:
     <h2 id="about-heading">About Me</h2>
   </div>
   <div class="about-copy">
-    <p>I am a first-year PhD student at <strong>Purdue University</strong>, where I am fortunate to be advised by Professor <a href="https://ruqizhang.github.io">Ruqi Zhang</a>. Prior to Purdue, I received my B.S. degree from <strong>Nanjing University</strong>, where I worked closely with Professor <a href="https://nlp.nju.edu.cn/huangsj">Shujian Huang</a>.</p>
+    <p>I am a first-year PhD student at <strong>Purdue University</strong>, where I am fortunate to be advised by Professor <a href="https://ruqizhang.github.io">Ruqi Zhang</a>. Prior to Purdue, I received my B.S. degree from <strong>Nanjing University</strong>, where I worked closely with <a href="https://github.com/RiverGao">Changjiang Gao</a> and Professor <a href="https://nlp.nju.edu.cn/huangsj">Shujian Huang</a>. During my undergrad studies, I also spent a wonderful semester at <strong>UC Berkeley</strong> as an exchange student.</p>
     <p>My research focuses on understanding and improving neural language systems. I am particularly interested in developing more efficient, capable, and reliable language models, with the goal of advancing both our theoretical understanding of these systems and their practical impact on real-world applications.</p>
   </div>
 </section>
