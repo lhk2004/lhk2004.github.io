@@ -1,3 +1,30 @@
+# Local design preview
+
+Double-click **preview.cmd** to generate and open the redesigned homepage in your
+default browser. No Ruby, Node, or package installation is needed on Windows.
+You can also open **local/preview/index.html** after generating it.
+
+The preview reads the actual homepage, layout, includes, configuration, and CSS;
+there is no separate copy of the design to maintain. Run the launcher again
+after editing the content. The generated files stay in the Git-ignored `local/`
+directory. Nothing is committed, pushed, or deployed by the preview.
+
+This lightweight preview covers the homepage, its section navigation, portrait,
+contact/profile links, and local CV. To preview every archive page and validate
+the complete GitHub Pages build, use the Jekyll
+instructions below. The homepage preview intentionally supports only the simple
+Liquid includes and scalar variables used by the home layout.
+
+To regenerate without opening the browser:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/preview.ps1
+```
+
+The redesign is in `assets/css/personal.css`, `_layouts/home.html`, and
+`_pages/about.md`. It uses system fonts and a permanent light palette; it does not
+read a saved theme preference or the operating system's dark-mode setting.
+
 # Academic Pages
 **Academic Pages is a GitHub Pages template for personal and professional portfolio-oriented websites.**
 

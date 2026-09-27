@@ -26,7 +26,7 @@ author:
   name             : "Hankun Lin"
   pronouns         : # example: "she/her"  
   bio              : "PhD Student @ Department of Computer Science, Purdue University"
-  location         : "West Lafayette, IN"
+  location         : ""
   employer         : "Purdue University"
   uri              : # URL
   email            : "lhankun@purdue.edu" 
@@ -186,6 +186,8 @@ exclude:
   - package.json*
   - Rakefile
   - README
+  - preview.cmd
+  - scripts/preview.ps1
   - tmp
   - vendor
 keep_files:

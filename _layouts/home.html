@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light">
+    <meta name="theme-color" content="#ffffff">
+    <title>{{ site.author.name | escape }} — {{ site.title | escape }}</title>
+    <meta name="description" content="{{ site.author.bio | escape }}. Research on efficient, capable, and reliable language models.">
+    <link rel="canonical" href="{{ site.url }}{{ site.baseurl }}/">
+    <link rel="icon" type="image/svg+xml" href="{{ site.baseurl }}/images/favicon.svg">
+    <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/personal.css">
+    <link rel="alternate" type="application/atom+xml" title="{{ site.title | escape }} Feed" href="{{ site.baseurl }}/feed.xml">
+  </head>
+  <body class="personal-home">
+    <a class="skip-link" href="#main">Skip to content</a>
+    {% include personal-header.html %}
+    <main id="main" class="home-main">
+      <section class="profile" aria-labelledby="profile-name">
+        <div class="profile__intro">
+          <h1 id="profile-name">{{ site.author.name }}</h1>
+          <p class="profile__bio">{{ site.author.bio }}</p>
+          <div class="profile__links" aria-label="Contact and profiles">
+            <a class="contact-link" href="mailto:{{ site.author.email }}">Email me <span aria-hidden="true">↗</span></a>
+            <a href="{{ site.author.googlescholar }}">Google Scholar <span aria-hidden="true">↗</span></a>
+            <a href="https://github.com/{{ site.author.github }}">GitHub <span aria-hidden="true">↗</span></a>
+            <a href="{{ site.baseurl }}{{ site.author.cv_link }}">CV <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+        <figure class="profile__portrait">
+          <div class="portrait-frame">
+            <img src="{{ site.baseurl }}/images/{{ site.author.avatar }}" alt="{{ site.author.name | escape }}" width="1090" height="1292" fetchpriority="high">
+          </div>
+        </figure>
+      </section>
+      {{ content }}
+    </main>
+    {% include personal-footer.html %}
+  </body>
+</html>
