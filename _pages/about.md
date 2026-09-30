@@ -30,7 +30,7 @@ redirect_from:
       <h3>SEED: Self-Speculative Decoding via Implicit Encoder-Decoder</h3>
       <p class="publication__authors"><strong>Hankun Lin*</strong>, Patrick Pynadath*, Ruqi Zhang.</p>
       <div class="publication__links">
-      <a href="https://lhk2004.github.io" aria-label="Paper: SEED">Paper <span aria-hidden="true">↗</span></a>
+      <a href="https://arxiv.org/abs/2609.36590" aria-label="Paper: SEED">Paper <span aria-hidden="true">↗</span></a>
         <a href="https://github.com/lhk2004/SEED" aria-label="Code: SEED">Code <span aria-hidden="true">↗</span></a>
       </div>
     </article>
